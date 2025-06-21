@@ -42,21 +42,23 @@ public class Engine
         {
             for (int r2 = 0; r2 < renderSystem.PotentialComponents.Length; r2++)
             {
+                //TODO: COME BACK TO THIS FOR A BETTER SOLUTION THIS IS LAZY
                 if (entities[i].Components.ContainsKey(renderSystem.PotentialComponents[r2]))
                 {
                     Console.WriteLine($"The Component is: {entities[i].Components[renderSystem.PotentialComponents[r2]]}");
                     if (renderSystem.PotentialComponents[r2].Equals("CubeRenderer"))
-                    {
                         renderSystem.CubeEntities.Add(entities[i]);
-                    }
                     else if (renderSystem.PotentialComponents[r2].Equals("SkyboxRenderer"))
-                    {
                         renderSystem.SkyboxEntities.Add(entities[i]);
-                    }
-                    else if (renderSystem.PotentialComponents[r2].Equals("LightingObject"))
-                    {
-                        renderSystem.LightEntities.Add(entities[i]);
-                    }
+                    else if(renderSystem.PotentialComponents[r2].Equals("ModelRenderer"))
+                        renderSystem.ModelEntities.Add(entities[i]);
+                    else if(renderSystem.PotentialComponents[r2].Equals("QuadRenderer"))
+                        renderSystem.QuadEntities.Add(entities[i]);
+                    else if (renderSystem.PotentialComponents[r2].Equals("DirectionalLight"))
+                        renderSystem.DirectionalLightEntities.Add(entities[i]);
+                    else if(renderSystem.PotentialComponents[r2].Equals("PointLight"))
+                        renderSystem.PointLightEntities.Add(entities[i]);
+
                 }
             }
         
@@ -64,7 +66,8 @@ public class Engine
         
         renderSystem.LoadSkyBox();
         renderSystem.LoadCube();
-
+        renderSystem.LoadModel();
+        renderSystem.LoadQuad();
     }
 
     public void RenderUse()
@@ -72,6 +75,9 @@ public class Engine
         //renderSystem.DrawRenderEntities(scene.Camera);
         renderSystem.DrawSkyBox(scene.Camera);
         renderSystem.DrawCube(scene.Camera);
+        renderSystem.DrawQuad(scene.Camera);
+        renderSystem.DrawModel(scene.Camera);
+        
 
     }
     
@@ -80,26 +86,20 @@ public class Engine
     public void PrintEntities()
     {
         for (int i = 0; i < entities.Count; i++)
-        {
             Console.WriteLine($"Entity Id: {entities[i].Id} |  Entity Name: {entities[i].EntityName}");
-        }
     }
 
     public void SetSystemState(KeyboardState input)
     {
         if (input.IsKeyPressed(Keys.L))
-        {
             counter++;
-        }
 
         if (counter % 2 == 0)
-        {
             renderSystem.InWireFrameMode = false;
-        }
         else
-        {
             renderSystem.InWireFrameMode = true;
-        }
     }
-    
+
+    public RenderSystem RenderSystem => renderSystem;
+
 }

@@ -1,9 +1,5 @@
-
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using StbImageSharp;
-
-
-
 namespace HoneyEngine.Engine;
 
 public class Texture
@@ -14,13 +10,10 @@ public class Texture
     public Texture(string filePath)
     {
         this.filePath = filePath;
-        
-        
     }
-    
-    public void LoadTextureImage()
-    {
 
+    public void LoadTexture()
+    {
         handle = GL.GenTexture();
 
         GL.ActiveTexture(TextureUnit.Texture0);

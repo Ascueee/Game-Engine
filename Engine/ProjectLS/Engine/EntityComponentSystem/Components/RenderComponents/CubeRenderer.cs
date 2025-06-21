@@ -9,9 +9,9 @@ public class CubeRenderer : IComponent
     private bool canRender = true;
     
     int vertexBufferObject;
-    int textureCoordinateBufferObject;
-    int vertexBufferObjectInstance;
     int vertexArrayObject;
+    int vertexBufferObjectInstance;
+ 
     private float[] vertices;
     
     private Vector2[] texCoords = new Vector2[6];

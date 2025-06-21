@@ -1,3 +1,4 @@
+using HoneyEngine.Engine;
 using OpenTK.Mathematics;
 using ProjectLS.Engine.EntityComponentSystem;
 using ProjectLS.Engine.EntityComponentSystem.Components;
@@ -12,90 +13,153 @@ namespace ProjectLS.LootNShoot;
 public class Scene
 {
     List<Entity> entities = new List<Entity>();
-    
-    //creates a texture atlas with each texture having a dimension of 16x16
-    private TextureAtlas spriteSheet = new TextureAtlas("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\sprite_sheet.png",
-        16, 16);
-    private TextureAtlas HDSprite = new TextureAtlas("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\HDDiffuse.png",
-        1024, 1024);
-    private TextureAtlas HDSpriteNormal = new TextureAtlas("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\HDNormal.png",
-        1024, 1024);
-    
     DebugCamera camera = new DebugCamera(new Vector3(0,0,0), (float)1920 / 1080);
+    private WorldEntities gameWorldEntities;
     
-    SkyboxTexture skybox = new SkyboxTexture(new string[]
+    public Scene()
     {
-        "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\SkyboxTextures\\px.png", 
-        "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\SkyboxTextures\\nx.png", 
-        "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\SkyboxTextures\\py.png", 
-        "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\SkyboxTextures\\nz.png", 
-        "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\SkyboxTextures\\pz.png", 
-        "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\LootNShoot\\Assets\\SkyboxTextures\\nz.png"  
-    });
-    
-    /// Creates a block entity that uses one texture
-    public void CreateEntity(int blockID, string Blockname)
-    {
-        entities.Add(new Entity(Blockname));
-        entities[blockID].AddComponent(new Transform());
-    }
-    
-    public void CreateCube(int blockID, string blockName, int textureX, int textureY)
-    {
-        entities.Add(new Entity(blockName));
-        
-        entities[blockID].AddComponent(new Transform(Vector3.Zero, Vector3.Zero, new Vector3(2f, 2f, 2f)));
-        entities[blockID].AddComponent(new CubeRenderer(spriteSheet, textureX, textureY));
-        entities[blockID].AddComponent(new Material("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\Lighting.vert",
-            "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\Lighting.frag",
-            spriteSheet ,new Vector3(1f,1f,1f)));
-    }
-    
-    public void CreateCube(int blockID, string blockName, int textureX, int textureY, int textureTwoX, int textureTwoY)
-    {
-        entities.Add(new Entity(blockName));
-        
-        entities[blockID].AddComponent(new Transform(Vector3.Zero, Vector3.Zero, new Vector3(2f, 2f, 2f)));
-        entities[blockID].AddComponent(new CubeRenderer(spriteSheet, textureX, textureY, textureTwoX, textureTwoY));
-        entities[blockID].AddComponent(new Material("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\Lighting.vert",
-            "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\Lighting.frag",
-            spriteSheet ,new Vector3(1f,1f,1f)));
+        this.gameWorldEntities = new WorldEntities(this);
     }
 
-    public void CreateSkyBox(int blockID, string blockName)
+    public void LoadScene()
     {
-        entities.Add(new Entity(blockName));
-        
-        entities[blockID].AddComponent(new SkyboxRenderer());
-        entities[blockID].AddComponent(new Material("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\SkyBox.vert",
-            "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\SkyBox.frag", skybox));
+        gameWorldEntities.InitializeEntities();
     }
 
-    public void CreateLightObject(int blockID, string blockName, Vector3 lightPos, Vector3 lightColor, Vector3 lightAmbient,
-        Vector3 lightDiffuse)
+    public void GenerateTextureAtlas()
     {
-        entities.Add(new Entity(blockName));
-        entities[blockID].AddComponent(new Transform(lightPos, Vector3.Zero, new Vector3(0.5f, 0.5f, 0.5f)));
-        entities[blockID].AddComponent(new LightingObject(lightColor, lightAmbient, lightDiffuse)); 
+                
+        gameWorldEntities.SpriteSheet.GenerateAtlasTexture();
+        gameWorldEntities.SkyBoxTexture.GenerateTexture();
+        gameWorldEntities.ModelDiffuse.GenerateAtlasTexture();
+        gameWorldEntities.ModelNormal.GenerateAtlasTexture();
+        gameWorldEntities.QuadTexture.GenerateAtlasTexture();
+        gameWorldEntities.HDDiffuse.GenerateAtlasTexture();
+        gameWorldEntities.HDNormal.GenerateAtlasTexture();
+    }
+    
+    public void CreateEntity(int entityID, string entityName)
+    {
+        entities.Add(new Entity(entityName));
+        entities[entityID].AddComponent(new Transform());
+    }
+    
+    public void CreateCube(int entityID, string entityName,int textureX, int textureY,
+        Transform transform, Material material)
+    {
+        entities.Add(new Entity(entityName));
+        entities[entityID].AddComponent(transform);
+        entities[entityID].AddComponent(new CubeRenderer(material.DiffuseTexture, textureX, textureY));
+        entities[entityID].AddComponent(material);
+    }
+    
+    public void CreateCube(int entityID, string entityName,int textureX, int textureY,
+        int textureTwoX, int textureTwoY, Transform transform, Material material)
+    {
+        entities.Add(new Entity(entityName));
+        
+        entities[entityID].AddComponent(transform);
+        entities[entityID].AddComponent(new CubeRenderer(material.DiffuseTexture, textureX, textureY, textureTwoX, textureTwoY));
+        entities[entityID].AddComponent(material);
     }
 
-    public void CreatePrimitiveCube(int blockID, string blockName, int textureX, int textureY)
+    public void CreateQuad(int entityID, string entityName, int textureX, int textureY,
+        Transform transform, Material material)
     {
-        entities.Add(new Entity(blockName));
-        entities[blockID].AddComponent(new Transform(Vector3.Zero, Vector3.Zero, new Vector3(100f,2f, 100f)));
-        entities[blockID].AddComponent(new CubeRenderer(HDSprite, textureX, textureY));
-        entities[blockID].AddComponent(new Material("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\Lighting.vert",
-            "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\Lighting.frag",
-            HDSprite, HDSpriteNormal, new Vector3(1f,1f,1f)));
+        entities.Add(new Entity(entityName));
+        entities[entityID].AddComponent(transform);
+        entities[entityID].AddComponent(new QuadRenderer(material.DiffuseTexture, textureX, textureY, true));
+        entities[entityID].AddComponent(material);
         
         
-        entities[blockID].Instance(new Vector3(0, 0, 0));
+        // //PLACES NUMBER OF BLADES OF GRASS
+        // Random rand = new Random();
+        // float xOffSet = 10f;
+        // float yOffSet = 25f;
+        //
+        // float max = 18;
+        // float min = -18;
+        // int numOfGrass = 20000;
+        //     
+        // for (int i = 0; i < numOfGrass; i++)
+        // {
+        //     float x = (float)(rand.NextDouble() * (max - min) + min);
+        //     float z = (float)(rand.NextDouble() * (max - min) + min);
+        //     entities[blockID].Instance(new Vector3(x, 0.5f, z));
+        // }
+
+    }
+    
+    public void CreatePrimitiveCube(int entityID, string entityName, 
+        int textureX, int textureY, Transform transform, Material material)
+    {
+        entities.Add(new Entity(entityName));
+        entities[entityID].AddComponent(transform);
+        entities[entityID].AddComponent(new CubeRenderer(material.DiffuseTexture, textureX, textureY));
+        entities[entityID].AddComponent(material);
+        
+        entities[entityID].Instance(new Vector3(0, 0, 0));
+        entities[entityID].Instance(new Vector3(1, 0, 0));
+        entities[entityID].Instance(new Vector3(2, 0, 0));
+        
+        entities[entityID].Instance(new Vector3(0, 0, 1));
+        entities[entityID].Instance(new Vector3(1, 0, 1));
+        entities[entityID].Instance(new Vector3(2, 0, 1));
+        
+        entities[entityID].Instance(new Vector3(0, 0, 2));
+        entities[entityID].Instance(new Vector3(1, 0, 2));
+        entities[entityID].Instance(new Vector3(2, 0, 2));
+        
+                
+        entities[entityID].Instance(new Vector3(0, 0, -1));
+        entities[entityID].Instance(new Vector3(1, 0, -1));
+        entities[entityID].Instance(new Vector3(2, 0, -1));
+        
+        entities[entityID].Instance(new Vector3(0, 0, -2));
+        entities[entityID].Instance(new Vector3(1, 0, -2));
+        entities[entityID].Instance(new Vector3(2, 0, -2));
+    }
+
+    public void CreateModel(int entityID, string entityName,string modelFilePath, int textureX, int textureY,
+        Transform transform, Material material)
+    {
+        entities.Add(new Entity(entityName));
+        entities[entityID].AddComponent(transform);
+        entities[entityID].AddComponent(new ModelRenderer(modelFilePath, material.DiffuseTexture, textureX, textureY));
+        entities[entityID].AddComponent(material);
+        
+        entities[entityID].Instance(transform.Position);
+    }
+
+    public void CreateSkyBox(int entityID, string entityName, SkyboxTexture skyBox)
+    {
+        entities.Add(new Entity(entityName));
+        
+        entities[entityID].AddComponent(new SkyboxRenderer());
+        entities[entityID].AddComponent(new Material("D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\SkyBox.vert",
+            "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\Engine\\Shaders\\SkyBox.frag", skyBox));
+    }
+
+    public void CreateDirectionalLight(int entityID, string entityName, Transform transform, Vector3 lightColor, Vector3 lightAmbient,
+        Vector3 lightDiffuse, Vector3 lightSpecular)
+    {
+        entities.Add(new Entity(entityName));
+        entities[entityID].AddComponent(transform);
+        entities[entityID].AddComponent(new DirectionalLightComponent(lightColor, lightAmbient, lightDiffuse, lightSpecular)); 
+    }
+    
+    public void CreatePointLight(int entityID, string entityName,TextureAtlas texture, int textureX, int textureY,
+        Transform transform, Vector3 lightColor, Vector3 lightAmbient, Vector3 lightDiffuse, Vector3 lightSpecular,
+        float constant, float linear, float quadratic)
+    {
+        entities.Add(new Entity(entityName));
+        entities[entityID].AddComponent(transform);
+        entities[entityID].AddComponent(new PointLightComponent(lightColor, lightAmbient, lightDiffuse,
+            lightSpecular, constant, linear, quadratic));
     }
     
     public DebugCamera Camera {get => camera; set => camera = value; }
     public List<Entity> Entities { get => entities; set => entities = value; }
-    public TextureAtlas SpriteSheet { get => spriteSheet; set => spriteSheet = value; }
-    public TextureAtlas HDDiffuse {get => HDSprite; set => HDSprite = value; }
-    public TextureAtlas HDNormal {get => HDSpriteNormal; set => HDSpriteNormal = value; }
-    public SkyboxTexture SkyBoxTexture { get => skybox; set => skybox = value; }
+    public WorldEntities GameWorldEntities { get => gameWorldEntities; set => gameWorldEntities = value; }
+    
 }

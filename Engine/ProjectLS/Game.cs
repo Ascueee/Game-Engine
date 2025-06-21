@@ -33,20 +33,16 @@ public class Game : GameWindow
     protected override void OnLoad()
     {
         GL.ClearColor(0.53f, 0.81f, 0.92f, 1.0f);
+        
         GL.Enable(EnableCap.DepthTest);
+        GL.Enable(EnableCap.Blend);
+        GL.Disable(EnableCap.CullFace);
+        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
         
-        //generates the texture atlas that is going to be used for the specific scene
-        gameManager.GameWorldScene.SpriteSheet.GenerateAtlasTexture();
-        gameManager.GameWorldScene.SkyBoxTexture.GenerateTexture();
-        gameManager.GameWorldScene.HDDiffuse.GenerateAtlasTexture();
-        gameManager.GameWorldScene.HDNormal.GenerateAtlasTexture();
         
-        //Loads game data
         gameManager.InstantiateGame();
-        
-        //sends the chunks rendering data to the ECS to send to relative systems
         engine.LoadEntities(gameManager.GameWorldScene.Entities);
-   
         
         engine.SortIntoSystems();
         engine.PrintEntities();
@@ -58,7 +54,6 @@ public class Game : GameWindow
         
         //RENDERING LOGIC:
         engine.RenderUse();
-        
         SwapBuffers();
     }
 

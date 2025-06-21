@@ -13,8 +13,12 @@
         "packagesPath": "C:\\Users\\Hayyan\\.nuget\\packages\\",
         "outputPath": "D:\\Repos\\Game-Engine\\Engine\\ProjectLS\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Hayyan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Hayyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -43,6 +47,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AssimpNet": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
             "JitterPhysics": {
               "target": "Package",
               "version": "[0.2.0.20, )"

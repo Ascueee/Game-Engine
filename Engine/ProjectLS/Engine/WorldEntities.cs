@@ -9,8 +9,6 @@ namespace ProjectLS.LootNShoot;
 /// <summary>
 /// Holds a registry of all the entities that are going to be used in the game
 /// INCLUDES:
-///     BLOCKS
-///     ITEMS
 ///     THE SCENE <-- Entities get fed into it to get sorted
 /// </summary>
 public class WorldEntities
@@ -92,8 +90,7 @@ public class WorldEntities
         this.worldScene = worldScene;
     }
     
-    //Creates all the blocks for the scene to use
-    public void InitializeBlocks()
+    public void InitializeEntities()
     {
         worldScene.CreateEntity(0, "Air Block");
         
@@ -121,7 +118,7 @@ public class WorldEntities
             new Vector3(1f, 1f, 1f), new Vector3(1f, 0.5f, 0f),
             1.0f,  0.02f, 0.001f);
         
-        worldScene.CreatePrimitiveCube(9, "Primitive Cube", 1024, 0,
+        worldScene.CreatePrimitiveCube(9, "Primitive Cube", 0, 0,
             primitiveCubeTransform, primitiveCubeMaterial);
         
         worldScene.CreateModel(10,"Test Model",

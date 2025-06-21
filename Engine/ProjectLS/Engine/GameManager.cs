@@ -3,7 +3,6 @@ namespace ProjectLS.LootNShoot;
 public class GameManager
 {
     private static Scene gameWorldScene = new Scene();
-    private WorldEntities gameWorldEntities = new WorldEntities(gameWorldScene);
     private WorldGenerator worldGenerator;
 
     private int worldSize;
@@ -21,11 +20,12 @@ public class GameManager
     //Loads all game features
     public void InstantiateGame()
     {
-        gameWorldEntities.InitializeBlocks();
+        gameWorldScene.GenerateTextureAtlas();
+        gameWorldScene.LoadScene();
         //worldGenerator.GenerateWorld(chunkWidth, chunkHeight);
     }
     
     public Scene GameWorldScene { get => gameWorldScene; set => gameWorldScene = value; }
-    public WorldEntities GameWorldEntities { get => gameWorldEntities; set => gameWorldEntities = value; }
+    
 
 }
