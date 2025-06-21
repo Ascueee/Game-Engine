@@ -1,6 +1,5 @@
 using OpenTK.Mathematics;
 using ProjectLS.Engine.Math;
-using ProjectLS.LootNShoot.Structures;
 
 namespace ProjectLS.LootNShoot;
 
@@ -9,9 +8,7 @@ public class Chunk
     private int chunkWidth;
     int chunkHeight;
     private Block[,,] chunkBlocks;
-    private StructureGen testStructureGen = new StructureGen("Forest");
-    private StructureGen structureTwo = new StructureGen("DirtWall");
-    private StructureGen structureThree = new StructureGen("DirtWallTwo");
+
     
     
     public Chunk(int chunkWidth, int chunkHeight)
@@ -61,65 +58,6 @@ public class Chunk
                 }
             }
         }
-        
-        //STRUCTURE GENERATION CODE(REMINDER COME BACK TO FIX LATER REALLY ASS CODE)
-        //GENERATES THE FORESTS
-        // for (int j = 0; j < 40; j++)
-        // {
-        //     Random rndSpawnStart = new Random();
-        //     int x2 = rndSpawnStart.Next(1, chunkWidth - 1);
-        //     int y2 = 1;
-        //     int z2 = rndSpawnStart.Next(1, chunkWidth - 1);
-        //
-        //     //Console.WriteLine($"Tree gen coordinate#{j}: {x2}, {y2}, {z2}");
-        //     for (int i = 0; i < testStructureGen.Structure.structureBlocks.Length; i++)
-        //     {
-        //         //Gets the position 
-        //         int chunkBlockIndexX = x2 + (int)testStructureGen.Structure.structureBlocks[i].X;
-        //         int chunkBlockIndexY = y2 + (int)testStructureGen.Structure.structureBlocks[i].Y;
-        //         int chunkBlockIndexZ = z2 + (int)testStructureGen.Structure.structureBlocks[i].Z;
-        //     
-        //         //Gets the location of the block inside the chunkBlocks Array
-        //         chunkBlocks[chunkBlockIndexX, chunkBlockIndexY, chunkBlockIndexZ].BlockName = testStructureGen.GenerateStructureBlocks(i);
-        //     }
-        // }
-        //
-        // //GENERATES THE SECOND STRUCTURE
-        // for (int j = 0; j < 35; j++)
-        // {
-        //     Random rndSpawnStart = new Random();
-        //     int x2 = rndSpawnStart.Next(5, chunkWidth - 5);
-        //     int y2 = 1;
-        //     int z2 = rndSpawnStart.Next(5, chunkWidth - 5);
-        //
-        //     //Console.WriteLine($"Tree gen coordinate#{j}: {x2}, {y2}, {z2}");
-        //     for (int i = 0; i < structureThree.Structure.structureBlocks.Length; i++)
-        //     {
-        //         int chunkBlockIndexX = x2 + (int)structureThree.Structure.structureBlocks[i].X;
-        //         int chunkBlockIndexY = y2 + (int)structureThree.Structure.structureBlocks[i].Y;
-        //         int chunkBlockIndexZ = z2 + (int)structureThree.Structure.structureBlocks[i].Z;
-        //         
-        //         chunkBlocks[chunkBlockIndexX, chunkBlockIndexY, chunkBlockIndexZ].BlockName = structureThree.GenerateStructureBlocks(i);
-        //     }
-        // }
-        //
-        // for (int j = 0; j < 35; j++)
-        // {
-        //     Random rndSpawnStart = new Random();
-        //     int x2 = rndSpawnStart.Next(5, chunkWidth - 5);
-        //     int y2 = 1;
-        //     int z2 = rndSpawnStart.Next(5, chunkWidth - 5);
-        //
-        //     //Console.WriteLine($"Tree gen coordinate#{j}: {x2}, {y2}, {z2}");
-        //     for (int i = 0; i < structureTwo.Structure.structureBlocks.Length; i++)
-        //     {
-        //         int chunkBlockIndexX = x2 + (int)structureTwo.Structure.structureBlocks[i].X;
-        //         int chunkBlockIndexY = y2 + (int)structureTwo.Structure.structureBlocks[i].Y;
-        //         int chunkBlockIndexZ = z2 + (int)structureTwo.Structure.structureBlocks[i].Z;
-        //         
-        //         chunkBlocks[chunkBlockIndexX, chunkBlockIndexY, chunkBlockIndexZ].BlockName = structureTwo.GenerateStructureBlocks(i);
-        //     }
-        // }
         
     }
 

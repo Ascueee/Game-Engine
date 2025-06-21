@@ -1,4 +1,3 @@
-using ProjectLS.LootNShoot.Structures;
 
 namespace ProjectLS.LootNShoot;
 public class GameManager
@@ -23,10 +22,10 @@ public class GameManager
     public void InstantiateGame()
     {
         gameWorldEntities.InitializeBlocks();
-        worldGenerator.GenerateWorld(chunkWidth, chunkHeight);
-        
+        //worldGenerator.GenerateWorld(chunkWidth, chunkHeight);
     }
     
     public Scene GameWorldScene { get => gameWorldScene; set => gameWorldScene = value; }
+    public WorldEntities GameWorldEntities { get => gameWorldEntities; set => gameWorldEntities = value; }
 
 }

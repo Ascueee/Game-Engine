@@ -1,3 +1,4 @@
+using HoneyEngine.Engine;
 using OpenTK.Mathematics;
 using ProjectLS.Engine.EntityComponentSystem.Textures;
 using ProjectLS.Engine.Shaders;
@@ -11,6 +12,7 @@ public class Material : IComponent
     private TextureAtlas diffuseDiffuseTexture;
     private TextureAtlas normalMapTexture;
     private TextureAtlas displacementMapTexture;
+    private Texture baseTexture;
     private SkyboxTexture skyboxTexure;
     private Vector3 shapeColor;
 
@@ -26,13 +28,18 @@ public class Material : IComponent
         this.diffuseDiffuseTexture = diffuseDiffuseTexture;
     }
     
+    public Material(string vertexShaderPath, string fragmentShaderPath, Texture texture, Vector3 shapeColor)
+    {
+        this.shader = new Shader(vertexShaderPath, fragmentShaderPath);
+        this.baseTexture = texture;
+    }
+    
     public Material(string vertexShaderPath, string fragmentShaderPath, TextureAtlas diffuseDiffuseTexture
         ,TextureAtlas normalMapTexture)
     {
         this.shader = new Shader(vertexShaderPath, fragmentShaderPath);
         this.diffuseDiffuseTexture = diffuseDiffuseTexture;
         this.normalMapTexture = normalMapTexture;
-
     }
     
     public Material(string vertexShaderPath, string fragmentShaderPath, TextureAtlas diffuseDiffuseTexture,
@@ -63,6 +70,7 @@ public class Material : IComponent
     public TextureAtlas DiffuseTexture { get => diffuseDiffuseTexture; set => diffuseDiffuseTexture = value; }
     public TextureAtlas NormalMapTexture { get => normalMapTexture; set => normalMapTexture = value; }
     public TextureAtlas DisplacementMapTexture { get => displacementMapTexture; set => displacementMapTexture = value; }
+    public Texture BaseTexture { get => baseTexture; set => baseTexture = value; }
     public SkyboxTexture SkyBoxTexture { get => skyboxTexure; set => skyboxTexure = value; }
     public Vector3 ShapeColor { get => shapeColor; set => shapeColor = value; }
     public string Name { get => name; }
