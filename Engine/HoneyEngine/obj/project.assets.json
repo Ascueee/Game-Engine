@@ -39,19 +39,6 @@
           }
         }
       },
-      "JitterPhysics/0.2.0.20": {
-        "type": "package",
-        "compile": {
-          "lib/net4/Jitter.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net4/Jitter.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -1576,23 +1563,6 @@
         "runtimes/osx-x64/native/libassimp.dylib",
         "runtimes/win-x64/native/assimp.dll",
         "runtimes/win-x86/native/assimp.dll"
-      ]
-    },
-    "JitterPhysics/0.2.0.20": {
-      "sha512": "Kgju3DCxS6ot55LX5+tFcALVcEDEfQ7jFkhjY+FR1bOn8Dh1YitomA9E6ZWIFGdKXeYDW1SKhGvKOnqJYjz4gQ==",
-      "type": "package",
-      "path": "jitterphysics/0.2.0.20",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "jitterphysics.0.2.0.20.nupkg.sha512",
-        "jitterphysics.nuspec",
-        "lib/net4/Jitter.dll",
-        "lib/net4/Jitter.pdb",
-        "lib/net4/Jitter.xml",
-        "lib/portable-net45+netcore45+wpa81+wp8/Jitter.dll",
-        "lib/portable-net45+netcore45+wpa81+wp8/Jitter.pdb",
-        "lib/portable-net45+netcore45+wpa81+wp8/Jitter.xml"
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -5090,7 +5060,6 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "AssimpNet >= 4.1.0",
-      "JitterPhysics >= 0.2.0.20",
       "OpenTK >= 4.9.3",
       "StbImageSharp >= 2.30.15"
     ]
@@ -5146,10 +5115,6 @@
             "target": "Package",
             "version": "[4.1.0, )"
           },
-          "JitterPhysics": {
-            "target": "Package",
-            "version": "[0.2.0.20, )"
-          },
           "OpenTK": {
             "target": "Package",
             "version": "[4.9.3, )"
@@ -5178,17 +5143,5 @@
         "runtimeIdentifierGraphPath": "C:\\Users\\Hayyan\\.dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'JitterPhysics 0.2.0.20' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "JitterPhysics",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

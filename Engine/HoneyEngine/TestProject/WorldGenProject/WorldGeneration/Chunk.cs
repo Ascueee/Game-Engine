@@ -82,23 +82,7 @@ public class Chunk
             {
                 for (int z = 0; z <  chunkWidth; z++)
                 {
-                    if (chunkBlocks[x, y, z].BlockName == "Sand Block")
-                    {
-                        gameWorldScene.Entities[2].Instance(chunkBlocks[x,y,z].BlockWorldPos);
-                    }
-                    else if (chunkBlocks[x, y, z].BlockName == "Stone Block")
-                    {
-                        gameWorldScene.Entities[3].Instance(chunkBlocks[x,y,z].BlockWorldPos);
-                    }
-                    else if (chunkBlocks[x, y, z].BlockName == "Grass Block")
-                    {
-                        gameWorldScene.Entities[1].Instance(chunkBlocks[x,y,z].BlockWorldPos);
-                    }
-                    else if (chunkBlocks[x, y, z].BlockName == "CobbleStone Block")
-                    {
-                        gameWorldScene.Entities[4].Instance(chunkBlocks[x,y,z].BlockWorldPos);
-                    }
-                    else if (chunkBlocks[x, y, z].BlockName == "Primitive Cube")
+                    if (chunkBlocks[x, y, z].BlockName == "Primitive Cube")
                     {
                         gameWorldScene.Entities[7].Instance(chunkBlocks[x,y,z].BlockWorldPos);
                     }

@@ -15,6 +15,10 @@ public class ModelRenderer : IComponent
     int elementBufferObject;
     int vertexBufferObjectInstance;
     
+    int debugVertexBufferObject;
+    int debugVertexArrayObject;
+    int debugVertexBufferObjectInstance;
+    
 
 public ModelRenderer(string filePath, TextureAtlas textureAtlas, int textureCellX, int textureCellY)
 {
@@ -83,6 +87,9 @@ public ModelRenderer(string filePath, TextureAtlas textureAtlas, int textureCell
     public int VertexArrayObject { get => vertexArrayObject; set => vertexArrayObject = value; }
     public int ElementBufferObject  { get => elementBufferObject; set => elementBufferObject = value; }
     public int VertexBufferObjectInstance { get => vertexBufferObjectInstance; set => vertexBufferObjectInstance = value; }
+    public int DebugVertexBufferObject { get => debugVertexBufferObject; set => debugVertexBufferObject = value; }
+    public int DebugVertexArrayObject { get => debugVertexArrayObject; set => debugVertexArrayObject = value; }
+    public int DebugVertexBufferObjectInstance { get => debugVertexBufferObjectInstance; set => debugVertexBufferObjectInstance = value; }
     
     public List<float> Vertices { get => vertices; set => vertices = value ?? throw new ArgumentNullException(nameof(value)); }
     public List<int> Indices { get => indices; set => indices = value ?? throw new ArgumentNullException(nameof(value)); }

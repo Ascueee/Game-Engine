@@ -1,4 +1,3 @@
-using Jitter.LinearMath;
 using OpenTK.Mathematics;
 using ProjectLS.Engine.EntityComponentSystem.Components;
 

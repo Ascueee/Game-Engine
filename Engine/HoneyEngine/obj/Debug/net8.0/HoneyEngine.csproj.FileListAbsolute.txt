@@ -4,7 +4,6 @@ D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\HoneyEngine.runtimeconf
 D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\HoneyEngine.dll
 D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\HoneyEngine.pdb
 D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\AssimpNet.dll
-D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\Jitter.dll
 D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\OpenTK.Audio.OpenAL.dll
 D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\OpenTK.Compute.dll
 D:\Repos\Game-Engine\Engine\HoneyEngine\bin\Debug\net8.0\OpenTK.Core.dll

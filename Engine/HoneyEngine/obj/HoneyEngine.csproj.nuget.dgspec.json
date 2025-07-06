@@ -51,10 +51,6 @@
               "target": "Package",
               "version": "[4.1.0, )"
             },
-            "JitterPhysics": {
-              "target": "Package",
-              "version": "[0.2.0.20, )"
-            },
             "OpenTK": {
               "target": "Package",
               "version": "[4.9.3, )"

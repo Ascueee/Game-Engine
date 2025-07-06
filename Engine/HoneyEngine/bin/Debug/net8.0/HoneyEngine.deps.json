@@ -9,7 +9,6 @@
       "HoneyEngine/1.0.0": {
         "dependencies": {
           "AssimpNet": "4.1.0",
-          "JitterPhysics": "0.2.0.20",
           "OpenTK": "4.9.3",
           "StbImageSharp": "2.30.15"
         },
@@ -47,14 +46,6 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "JitterPhysics/0.2.0.20": {
-        "runtime": {
-          "lib/net4/Jitter.dll": {
-            "assemblyVersion": "0.2.0.0",
-            "fileVersion": "0.2.0.20"
           }
         }
       },
@@ -891,13 +882,6 @@
       "sha512": "sha512-z/4Tmf3Q2r1+vN6o/szArEZvPsdYNRYiS0L/yArybQd7n7KCiS9L4lRZhwwlHJb/edECM+Jky0XisVspr5aQWQ==",
       "path": "assimpnet/4.1.0",
       "hashPath": "assimpnet.4.1.0.nupkg.sha512"
-    },
-    "JitterPhysics/0.2.0.20": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Kgju3DCxS6ot55LX5+tFcALVcEDEfQ7jFkhjY+FR1bOn8Dh1YitomA9E6ZWIFGdKXeYDW1SKhGvKOnqJYjz4gQ==",
-      "path": "jitterphysics/0.2.0.20",
-      "hashPath": "jitterphysics.0.2.0.20.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

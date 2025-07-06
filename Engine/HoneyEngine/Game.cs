@@ -4,6 +4,7 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using ProjectLS.Engine.EntityComponentSystem;
+using ProjectLS.Engine.EntityComponentSystem.Components;
 using ProjectLS.LootNShoot;
 
 namespace ProjectLS;
@@ -23,7 +24,7 @@ public class Game : GameWindow
     {
         Size = (width, height),
         Title = title,
-        WindowState = WindowState.Maximized,
+        //WindowState = WindowState.Maximized,
 
     })
     {
@@ -38,8 +39,6 @@ public class Game : GameWindow
         GL.Enable(EnableCap.Blend);
         GL.Disable(EnableCap.CullFace);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-
-        
         
         gameManager.InstantiateGame();
         
@@ -58,6 +57,9 @@ public class Game : GameWindow
 
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
+        engine.EngineDeltaTime = (float)e.Time;
+        engine.EngineElapsedTime += (float)e.Time;
+        
         KeyboardState input = KeyboardState;
         MouseState mouse = MouseState;
         
@@ -68,14 +70,14 @@ public class Game : GameWindow
         //if(input.IsKeyPressed(Keys.F))
             //engine.PhysicsSystem.AddForce(generateWorldTest.Scene.Entities[3], new Vector3(0f, 4f, 0f));
             
-        
         engine.SetSystemState(input);//sets the system state to wireframe mode for debugging
+        engine.PhysicsUse();
         
         gameManager.GameWorldScene.Camera.MoveAround(input, e);
         gameManager.GameWorldScene.Camera.RotateCamera(mouse);
         
         //calculates the FPS for and displays it in the title of the game
-        fpsCalcTimer += e.Time;
+        fpsCalcTimer += engine.EngineDeltaTime;
         frames++;
         
         if (fpsCalcTimer >= 1.0)

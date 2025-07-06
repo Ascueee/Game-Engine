@@ -13,6 +13,7 @@ uniform mat3 inverseTranspose;
 out vec3 normal;
 out vec3 fragPos;
 out vec2 texCoord;
+out vec3 worldPos;
 
 void main()
 {
@@ -21,6 +22,7 @@ void main()
     
     
     fragPos = vec3(model * vec4(pos + instancePos, 1.0));
+    worldPos = fragPos;
     gl_Position = projection * view * model * vec4(pos + instancePos, 1.0);
 
 }

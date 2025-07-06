@@ -2,6 +2,7 @@ using HoneyEngine.Engine;
 using OpenTK.Mathematics;
 using ProjectLS.Engine.EntityComponentSystem;
 using ProjectLS.Engine.EntityComponentSystem.Components;
+using ProjectLS.Engine.EntityComponentSystem.Components.PhysicsComponents;
 using ProjectLS.Engine.EntityComponentSystem.Components.RenderComponents;
 using ProjectLS.Engine.EntityComponentSystem.Textures;
 
@@ -57,7 +58,6 @@ public class Scene
         int textureTwoX, int textureTwoY, Transform transform, Material material)
     {
         entities.Add(new Entity(entityName));
-        
         entities[entityID].AddComponent(transform);
         entities[entityID].AddComponent(new CubeRenderer(material.DiffuseTexture, textureX, textureY, textureTwoX, textureTwoY));
         entities[entityID].AddComponent(material);
@@ -69,6 +69,7 @@ public class Scene
         entities.Add(new Entity(entityName));
         entities[entityID].AddComponent(transform);
         entities[entityID].AddComponent(new QuadRenderer(material.DiffuseTexture, textureX, textureY, isCross));
+        entities[entityID].AddComponent(new SpriteAnimator(10f, 32, new Vector2(128, 32), 4));
         entities[entityID].AddComponent(material);
         
         entities[entityID].Instance(transform.Position);
@@ -81,28 +82,34 @@ public class Scene
         entities.Add(new Entity(entityName));
         entities[entityID].AddComponent(transform);
         entities[entityID].AddComponent(new CubeRenderer(material.DiffuseTexture, textureX, textureY));
+        
+        //creates one collider for one instance need to make multiple for multiple colliders
+        Vector3 center = transform.Position;
+        entities[entityID].AddComponent(new BoxCollider(center,new Vector3(0.5f, 0.001f, 0.5f),
+            new Vector3(0.5f, 0.001f, 0.5f), new Vector3(0,0,0) ,true));
         entities[entityID].AddComponent(material);
         
         entities[entityID].Instance(new Vector3(0, 0, 0));
-        entities[entityID].Instance(new Vector3(1, 0, 0));
-        entities[entityID].Instance(new Vector3(2, 0, 0));
         
-        entities[entityID].Instance(new Vector3(0, 0, 1));
-        entities[entityID].Instance(new Vector3(1, 0, 1));
-        entities[entityID].Instance(new Vector3(2, 0, 1));
-        
-        entities[entityID].Instance(new Vector3(0, 0, 2));
-        entities[entityID].Instance(new Vector3(1, 0, 2));
-        entities[entityID].Instance(new Vector3(2, 0, 2));
-        
-                
-        entities[entityID].Instance(new Vector3(0, 0, -1));
-        entities[entityID].Instance(new Vector3(1, 0, -1));
-        entities[entityID].Instance(new Vector3(2, 0, -1));
-        
-        entities[entityID].Instance(new Vector3(0, 0, -2));
-        entities[entityID].Instance(new Vector3(1, 0, -2));
-        entities[entityID].Instance(new Vector3(2, 0, -2));
+        // entities[entityID].Instance(new Vector3(1, 0, 0));
+        // entities[entityID].Instance(new Vector3(2, 0, 0));
+        //
+        // entities[entityID].Instance(new Vector3(0, 0, 1));
+        // entities[entityID].Instance(new Vector3(1, 0, 1));
+        // entities[entityID].Instance(new Vector3(2, 0, 1));
+        //
+        // entities[entityID].Instance(new Vector3(0, 0, 2));
+        // entities[entityID].Instance(new Vector3(1, 0, 2));
+        // entities[entityID].Instance(new Vector3(2, 0, 2));
+        //
+        //         
+        // entities[entityID].Instance(new Vector3(0, 0, -1));
+        // entities[entityID].Instance(new Vector3(1, 0, -1));
+        // entities[entityID].Instance(new Vector3(2, 0, -1));
+        //
+        // entities[entityID].Instance(new Vector3(0, 0, -2));
+        // entities[entityID].Instance(new Vector3(1, 0, -2));
+        // entities[entityID].Instance(new Vector3(2, 0, -2));
     }
 
     public void CreateModel(int entityID, string entityName,string modelFilePath, int textureX, int textureY,
@@ -111,6 +118,9 @@ public class Scene
         entities.Add(new Entity(entityName));
         entities[entityID].AddComponent(transform);
         entities[entityID].AddComponent(new ModelRenderer(modelFilePath, material.DiffuseTexture, textureX, textureY));
+        Vector3 center = transform.Position;
+        entities[entityID].AddComponent(new BoxCollider(center, new Vector3(50.0f, 200f, 50.0f),
+            new Vector3(50f, 1f, 50f), new Vector3(0.0f, 1.0f, 0.0f) ,false));
         entities[entityID].AddComponent(material);
         
         entities[entityID].Instance(transform.Position);

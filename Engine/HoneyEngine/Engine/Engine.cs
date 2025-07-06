@@ -19,8 +19,11 @@ public class Engine
     
     //ENGINE SYSTEMS
     RenderSystem renderSystem = new RenderSystem();
+    PhysicsSystem physicsSystem = new PhysicsSystem();
     
     int counter = 0;
+    private float engineElapsedTime;
+    private float engineDeltaTime;
     
     public Engine(Scene scene)
     {
@@ -43,42 +46,44 @@ public class Engine
     {
         for (int i = 0; i < entities.Count; i++)
         {
-            for (int r2 = 0; r2 < renderSystem.PotentialComponents.Length; r2++)
-            {
-                //TODO: COME BACK TO THIS FOR A BETTER SOLUTION THIS IS LAZY
-                if (entities[i].Components.ContainsKey(renderSystem.PotentialComponents[r2]))
-                {
-                    Console.WriteLine($"The Component is: {entities[i].Components[renderSystem.PotentialComponents[r2]]}");
-                    if (renderSystem.PotentialComponents[r2].Equals("CubeRenderer"))
-                        renderSystem.CubeEntities.Add(entities[i]);
-                    else if (renderSystem.PotentialComponents[r2].Equals("SkyboxRenderer"))
-                        renderSystem.SkyboxEntities.Add(entities[i]);
-                    else if(renderSystem.PotentialComponents[r2].Equals("ModelRenderer"))
-                        renderSystem.ModelEntities.Add(entities[i]);
-                    else if(renderSystem.PotentialComponents[r2].Equals("QuadRenderer"))
-                        renderSystem.QuadEntities.Add(entities[i]);
-                    else if (renderSystem.PotentialComponents[r2].Equals("DirectionalLight"))
-                        renderSystem.DirectionalLightEntities.Add(entities[i]);
-                    else if(renderSystem.PotentialComponents[r2].Equals("PointLight"))
-                        renderSystem.PointLightEntities.Add(entities[i]);
-
-                }
-            }
-        
+            //TODO: COME BACK TO THIS FOR A BETTER SOLUTION THIS IS LAZY
+            
+            //FOR THE RENDERER
+            if (entities[i].Components.ContainsKey("CubeRenderer"))
+                renderSystem.CubeEntities.Add(entities[i]);
+            else if (entities[i].Components.ContainsKey("SkyboxRenderer"))
+                renderSystem.SkyboxEntities.Add(entities[i]);
+            else if(entities[i].Components.ContainsKey("ModelRenderer"))
+                renderSystem.ModelEntities.Add(entities[i]);
+            else if(entities[i].Components.ContainsKey("QuadRenderer"))
+                renderSystem.QuadEntities.Add(entities[i]);
+            else if (entities[i].Components.ContainsKey("DirectionalLight"))
+                renderSystem.DirectionalLightEntities.Add(entities[i]);
+            else if(entities[i].Components.ContainsKey("PointLight"))
+                renderSystem.PointLightEntities.Add(entities[i]);
+            
+            //PHYSICS
+            if(entities[i].Components.ContainsKey("BoxCollider"))
+                physicsSystem.PhysicsEntities.Add(entities[i]);
+                
+            
         }
+        
+        
         //Loads The Render System
         renderSystem.LoadEngine();
     }
 
     public void RenderUse()
     {
-        renderSystem.Render(scene.Camera);
+        renderSystem.Render(scene.Camera, engineElapsedTime);
+    }
+
+    public void PhysicsUse()
+    {
+        physicsSystem.Update(engineDeltaTime);
     }
     
-    public void UpdateEngineTime()
-    {
-        
-    }
     
     //Prints all the entities being used by the ECS
     public void PrintEntities()
@@ -99,4 +104,6 @@ public class Engine
     }
 
     public RenderSystem RenderSystem => renderSystem;
+    public float EngineElapsedTime { get => engineElapsedTime; set => engineElapsedTime = value; }
+    public float EngineDeltaTime {get => engineDeltaTime; set => engineDeltaTime = value; }
 }

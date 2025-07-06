@@ -9,6 +9,7 @@ public class Material : IComponent
 {
     string name = "Material";
     private Shader shader;
+    private Shader shaderTwo;
     private TextureAtlas diffuseDiffuseTexture;
     private TextureAtlas normalMapTexture;
     private TextureAtlas displacementMapTexture;
@@ -16,44 +17,54 @@ public class Material : IComponent
     private SkyboxTexture skyboxTexure;
     private Vector3 shapeColor;
 
-    public Material(string vertexShaderPath, string fragmentShaderPath, Vector3 shapeColor)
+    public Material(Shader shader, Vector3 shapeColor)
     {
-        shader = new Shader(vertexShaderPath, fragmentShaderPath);
+        this.shader = shader;
         this.shapeColor = shapeColor;
         
     }
-    public Material(string vertexShaderPath, string fragmentShaderPath, TextureAtlas diffuseDiffuseTexture)
+    public Material(Shader shader, TextureAtlas diffuseDiffuseTexture)
     {
-        this.shader = new Shader(vertexShaderPath, fragmentShaderPath);
+        this.shader = shader;
         this.diffuseDiffuseTexture = diffuseDiffuseTexture;
     }
     
-    public Material(string vertexShaderPath, string fragmentShaderPath, Texture texture, Vector3 shapeColor)
+    public Material(Shader shader, Texture texture, Vector3 shapeColor)
     {
-        this.shader = new Shader(vertexShaderPath, fragmentShaderPath);
+        this.shader = shader;
         this.baseTexture = texture;
     }
     
-    public Material(string vertexShaderPath, string fragmentShaderPath, TextureAtlas diffuseDiffuseTexture
+    public Material(Shader shader, TextureAtlas diffuseDiffuseTexture
         ,TextureAtlas normalMapTexture)
     {
-        this.shader = new Shader(vertexShaderPath, fragmentShaderPath);
+        this.shader = shader;
         this.diffuseDiffuseTexture = diffuseDiffuseTexture;
         this.normalMapTexture = normalMapTexture;
     }
     
-    public Material(string vertexShaderPath, string fragmentShaderPath, TextureAtlas diffuseDiffuseTexture,
+    public Material(Shader shader, TextureAtlas diffuseDiffuseTexture,
         Vector3 shapeColor)
     {
-        this.shader = new Shader(vertexShaderPath, fragmentShaderPath);
+        this.shader = shader;
         this.diffuseDiffuseTexture = diffuseDiffuseTexture;
         this.ShapeColor = shapeColor;
     }
     
-    public Material(string vertexShaderPath, string fragmentShaderPath, TextureAtlas diffuseDiffuseTexture,
+    public Material(Shader shader, TextureAtlas diffuseDiffuseTexture,
         TextureAtlas normalMapTexture, Vector3 shapeColor)
     {
-        this.shader = new Shader(vertexShaderPath, fragmentShaderPath);
+        this.shader = shader;
+        this.diffuseDiffuseTexture = diffuseDiffuseTexture;
+        this.normalMapTexture = normalMapTexture;
+        this.ShapeColor = shapeColor;
+    }
+    
+    public Material(Shader shader, Shader shaderTwo, TextureAtlas diffuseDiffuseTexture,
+        TextureAtlas normalMapTexture, Vector3 shapeColor)
+    {
+        this.shader = shader;
+        this.shaderTwo = shaderTwo;
         this.diffuseDiffuseTexture = diffuseDiffuseTexture;
         this.normalMapTexture = normalMapTexture;
         this.ShapeColor = shapeColor;
@@ -67,6 +78,7 @@ public class Material : IComponent
     }
     
     public Shader Shader { get => shader; set => shader = value; }
+    public Shader ShaderTwo { get => shaderTwo; set => shaderTwo = value; }
     public TextureAtlas DiffuseTexture { get => diffuseDiffuseTexture; set => diffuseDiffuseTexture = value; }
     public TextureAtlas NormalMapTexture { get => normalMapTexture; set => normalMapTexture = value; }
     public TextureAtlas DisplacementMapTexture { get => displacementMapTexture; set => displacementMapTexture = value; }

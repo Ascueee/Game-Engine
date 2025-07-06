@@ -11,6 +11,10 @@ public class CubeRenderer : IComponent
     int vertexBufferObject;
     int vertexArrayObject;
     int vertexBufferObjectInstance;
+    
+    int debugVertexBufferObject;
+    int debugVertexArrayObject;
+    int debugVertexBufferObjectInstance;
  
     private float[] vertices;
     
@@ -178,8 +182,11 @@ public class CubeRenderer : IComponent
         };
     }
     
-    public int VertexBufferObjectInstance { get => vertexBufferObject; set => vertexBufferObject = value; }
+    public int VertexBufferObjectInstance { get => vertexBufferObjectInstance; set => vertexBufferObjectInstance = value; }
     public int VertexBufferObject { get => vertexBufferObject; set => vertexBufferObject = value; }
+    public int DebugVertexBufferObject { get => debugVertexBufferObject; set => debugVertexBufferObject = value; }
+    public int DebugVertexArrayObject { get => debugVertexArrayObject; set => debugVertexArrayObject = value; }
+    public int DebugVertexBufferObjectInstance { get => debugVertexBufferObjectInstance; set => debugVertexBufferObjectInstance = value; }
     public int VertexArrayObject { get => vertexArrayObject; set => vertexArrayObject = value; }
     public float[] Vertices {get => vertices;}
     public string Name => name;

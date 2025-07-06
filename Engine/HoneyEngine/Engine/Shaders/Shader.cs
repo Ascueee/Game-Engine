@@ -9,23 +9,61 @@ public class Shader
     bool disposed = false;
     string vertexShaderPath;
     string fragmentShaderPath;
+    private string geometryShaderPath;
     
     public Shader(string vertexShaderPath, string fragmentShaderPath)
     {
         this.vertexShaderPath = vertexShaderPath;
         this.fragmentShaderPath = fragmentShaderPath;
     }
+    
+    public Shader(string vertexShaderPath, string fragmentShaderPath, string geometryShaderPath)
+    {
+        this.vertexShaderPath = vertexShaderPath;
+        this.fragmentShaderPath = fragmentShaderPath;
+        this.geometryShaderPath = geometryShaderPath;
+    }
+    
     public void LoadShader()
     {
         int vertexShader;
         int fragmentShader;
         
-        //Reads the shader source code from the file paths
         string vertexShaderSource = File.ReadAllText(vertexShaderPath);
         string fragmentShaderSource = File.ReadAllText(fragmentShaderPath);
         
         vertexShader = GL.CreateShader(ShaderType.VertexShader);
+        GL.ShaderSource(vertexShader, vertexShaderSource);
+        
         fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
+        GL.ShaderSource(fragmentShader, fragmentShaderSource);
+
+        CompileShader(vertexShader);
+        CompileShader(fragmentShader);
+        
+
+        handle = GL.CreateProgram();
+        
+        LinkProgram(vertexShader, fragmentShader);
+
+        GL.DetachShader(handle, vertexShader);
+        GL.DetachShader(handle, fragmentShader);
+        GL.DeleteShader(fragmentShader);
+        GL.DeleteShader(vertexShader);
+    }
+    
+    public void LoadShaderWithGeometryShader()
+    {
+        int vertexShader;
+        int fragmentShader;
+        int geometryShader;
+        
+        //Reads the shader source code from the file paths
+        string vertexShaderSource = File.ReadAllText(vertexShaderPath);
+        string fragmentShaderSource = File.ReadAllText(fragmentShaderPath);
+        string geometryShaderSource = File.ReadAllText(geometryShaderPath);
+
+
         
         vertexShader = GL.CreateShader(ShaderType.VertexShader);
         GL.ShaderSource(vertexShader, vertexShaderSource);
@@ -33,21 +71,16 @@ public class Shader
         fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
         GL.ShaderSource(fragmentShader, fragmentShaderSource);
         
-        //compiles the shaders to be used and checks for shader compilation errors
+        geometryShader = GL.CreateShader(ShaderType.GeometryShader);
+        GL.ShaderSource(geometryShader, geometryShaderSource);
+        
         CompileShader(vertexShader);
         CompileShader(fragmentShader);
+        CompileShader(geometryShader);
         
-        
-        //creates a program
         handle = GL.CreateProgram();
         
-        LinkProgram(vertexShader, fragmentShader);
-        
-        //Detach and the delete the shader for clean up
-        GL.DetachShader(handle, vertexShader);
-        GL.DetachShader(handle, fragmentShader);
-        GL.DeleteShader(fragmentShader);
-        GL.DeleteShader(vertexShader);
+        LinkProgram(vertexShader, fragmentShader, geometryShader);
     }
 
     
@@ -96,7 +129,38 @@ public class Shader
             string infoLog = GL.GetProgramInfoLog(handle);
             Console.WriteLine(infoLog);
         }
+        
+        //Detach and the delete the shader for clean up
+        GL.DetachShader(handle, vertexShader);
+        GL.DetachShader(handle, fragmentShader);
+        GL.DeleteShader(fragmentShader);
+        GL.DeleteShader(vertexShader);
     }
+    
+    void LinkProgram(int vertexShader, int fragmentShader, int geometryShader)
+    {
+        GL.AttachShader(handle, vertexShader);
+        GL.AttachShader(handle, fragmentShader);
+        GL.AttachShader(handle, geometryShader);
+        
+        GL.LinkProgram(handle);
+        
+        GL.GetProgram(handle, GetProgramParameterName.LinkStatus, out int result);
+        if (result == 0)
+        {
+            string infoLog = GL.GetProgramInfoLog(handle);
+            Console.WriteLine(infoLog);
+        }
+        
+        GL.DetachShader(handle, vertexShader);
+        GL.DetachShader(handle, fragmentShader);
+        GL.DetachShader(handle, geometryShader);
+        GL.DeleteShader(geometryShader);
+        GL.DeleteShader(fragmentShader);
+        GL.DeleteShader(vertexShader);
+        
+    }
+
 
     public void SetVec4(string name, Vector4 vec)
     {

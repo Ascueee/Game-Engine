@@ -98,7 +98,7 @@ public class DebugCamera
 
     public Matrix4 GetProjectionMatrix()
     {
-        return Matrix4.CreatePerspectiveFieldOfView(fov, aspectRation, 0.01f, 300f);
+        return Matrix4.CreatePerspectiveFieldOfView(fov, aspectRation, 0.1f, 300f);
     }
     
     public Matrix4 GetViewMatrix()
@@ -108,8 +108,8 @@ public class DebugCamera
     
     public Matrix4 GetViewMatrixSkyBox()
     {
-        
-        return Matrix4.LookAt(Vector3.Zero,  new Vector3(0.0f, 0.0f, -1.0f), new Vector3(0.0f, 1.0f,  0.0f));
+        Matrix4 view = GetViewMatrix();
+        return new Matrix4(new Matrix3(view));
     }
     
     public float AspectRatio { get => aspectRation; set => aspectRation = value; }

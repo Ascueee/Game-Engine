@@ -18,21 +18,25 @@ public class Transform : IComponent
         
         Matrix4 rotationMatrix = Matrix4.CreateRotationX(rotation.X) * Matrix4.CreateRotationY(rotation.Y) 
                                                                      * Matrix4.CreateRotationZ(rotation.Z);
-        model = Matrix4.CreateScale(scale) * rotationMatrix * Matrix4.CreateTranslation(position);
+        model = Matrix4.CreateTranslation(this.position) * rotationMatrix * Matrix4.CreateScale(this.scale);
     }
     
-    public Transform(Vector3 position)
-    {
-        this.position = position;
-    }
-    
-
     public Transform()
     {
         this.position = Vector3.Zero;
         this.rotation = Vector3.Zero;
         this.scale = Vector3.One;
     }
+    
+    public Matrix4 UpdateModel()
+    {
+        Matrix4 rotationMatrix = Matrix4.CreateRotationX(rotation.X) * Matrix4.CreateRotationY(rotation.Y) 
+                                                                     * Matrix4.CreateRotationZ(rotation.Z);
+        return model = Matrix4.CreateTranslation(position) * rotationMatrix * Matrix4.CreateScale(scale);
+    }
+    
+
+
 
     public Matrix4 GetModelMatrix()
     {
